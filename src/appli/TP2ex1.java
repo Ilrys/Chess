@@ -9,11 +9,8 @@ import game.chessPiece.*;
 
 import static game.Color.*;
 
-public class Tp1ex1 {
-    /**
-     *
-     * @param args an array argument used with the console.
-     */
+
+public class TP2ex1 {
 
     public static void main(String[] args) {
         ChessBoard myChess = new ChessBoard();
@@ -100,10 +97,21 @@ public class Tp1ex1 {
 
         try{
             // My news positions
-            Coord myCoordPawnW1 = new Coord(4,1);
+            //Coord myCoordPawnB1 = new Coord(5,1);
+            //myPawnB1.move(myCoordPawnB1);
+
+            //Coord myCoordPawnB5 = new Coord(6,5);
+            //myPawnB5.move(myCoordPawnB5);
+
+            //Coord myQueenPawnB = new Coord(5,2);
+            //myQueenB.move(myQueenPawnB);
+
+            Coord myCoordPawnW1 = new Coord(3,1);
             myPawnW1.move(myCoordPawnW1);
-            Coord myQueenPawnB = new Coord(9,5);
-            myQueenB.move(myQueenPawnB);
+
+            Coord myTowerW = new Coord(5,1);
+            myTowerW1.move(myTowerW);
+
         } catch (IllegalPosition e){
             System.out.println(e);
         } catch (IllegalMove e){
@@ -112,5 +120,4 @@ public class Tp1ex1 {
         myChess.smartPrint();
 
     }
- }
-
+}

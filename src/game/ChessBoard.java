@@ -1,14 +1,23 @@
 package game;
 
+import game.chessPiece.King;
+import game.chessPiece.Movable;
+
 public class ChessBoard {
-    private int[][] cases;
+    Case lesCases[][];
 
     /**
      * The constructor of the chessboard
      */
 
     public ChessBoard() {
-        cases = new int[8][8];
+        lesCases = new Case[8][8];
+
+        for(int i = 0; i<8; i++){
+            for( int j = 0; j<8; j++){
+                lesCases[i][j] = new Case();
+            }
+        }
     }
 
     /**
@@ -18,40 +27,35 @@ public class ChessBoard {
      */
 
     public boolean isOccupied(Coord pos){
-        if(cases[pos.getX()][pos.getY()] == 1){
-            return true;
-        }else{
-            return false;
-        }
+        return this.lesCases[pos.getX()][pos.getY()].isOccupied();
     }
 
     /**
      * Set if the position in the matrix is occupied or not
      * @param pos represents a specific position in matrix.
-     * @param in  Boolean value to set if the position is occupied or not.
+     * @param p  Boolean value to set if the position is occupied or not.
      */
 
-    public void setOccupation(Coord pos, boolean in){
-        if (in == true) {
-            cases[pos.getX()][pos.getY()] = 1;
-        } else {
-            cases[pos.getX()][pos.getY()] = 0;
-        }
+    public void setOccupation(Coord pos, Movable p){
+        // REMPLACER
+        lesCases[p.getPos().getX()][p.getPos().getY()].setPiece(null);
+        lesCases[pos.getX()][pos.getY()].setPiece(p);
     }
 
     /**
      * The visual matrix for interface
      */
 
+
     public void smartPrint(){
         System.out.println("");
         for(int i = 8; i>0; i--){ // évite l'inversion d'affichage
             System.out.print(i);
             for( int j = 0; j<8; j++){
-                if(this.cases[i-1][j] == 1) {
-                    System.out.print(" X ");
+                if(this.lesCases[i-1][j].isOccupied() == true) {
+                    System.out.print(" " + this.lesCases[i-1][j].getPiece() + " ");
                 }else{
-                    System.out.print("   ");
+                    System.out.print(" □ ");
                 }
             }
             System.out.println("");

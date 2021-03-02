@@ -12,34 +12,15 @@ import game.boardException.IllegalPosition;
  */
 
 public class Pawn extends Piece {
-
-    public ChessBoard board;
-    public Color col;
-    public Coord place;
-
-    //Getter
-    public Color getCol() {
-        return col;
-    }
-    public Coord getPlace() {
-        return place;
-    }
-    public ChessBoard getBoard() {
-        return board;
-    }
-
     /**
      *
-     * @param place corresponds of the position's piece
+     * @param pos corresponds of the position's piece
      * @param col corresponds of tge color's piece
      * @param board corresponds of the board with de pieces
      */
 
-    public Pawn(Coord place, Color col, ChessBoard board) {
-        this.place = place;
-        this.col = col;
-        this.board = board;
-        this.board.setOccupation(this.place, true);
+    public Pawn(Coord pos, Color col, ChessBoard board) {
+        super(pos, col, board);
     }
 
     /**
@@ -49,37 +30,30 @@ public class Pawn extends Piece {
      * @throws IllegalMove except an exception when  the piece make a move out of this capacity.
      */
 
-    public void move(Coord c) throws IllegalPosition, IllegalMove {
-        int dy = Math.abs(this.place.getY() - c.getY());
-
+    @Override
+    protected boolean isValidMove(Coord c) {
+        int dy = Math.abs(this.pos.getY() - c.getY());
         if(getCol() == Color.WHITE) {
-            if ((c.getX() == this.place.getX() + 1 && dy == 0) || (this.place.getX() == 1 && c.getX() <= this.place.getX() + 2 && dy == 0)){
-                if (c.getX() < 8 && c.getX() >= 0 && c.getY() < 8 && c.getY() >= 0 && !getBoard().isOccupied(c)) {
-                    this.board.setOccupation(this.place, false);
-                    this.place = c;
-                    this.board.setOccupation(c, true);
-                } else {
-                    throw new IllegalMove("Illegal move for the Pawn");
+            if ((c.getX() == this.pos.getX() + 1 && dy == 0) || (this.pos.getX() == 1 && c.getX() <= this.pos.getX() + 2 && dy == 0)){
+                if (checkPath(this.pos, c)) {
+                    return true;
                 }
-            } else {
-                throw new IllegalPosition("The Pawn is out of range");
             }
-        } else if(getCol() == Color.BLACK){
-            if ((c.getX() == this.place.getX() - 1 && dy == 0) || (this.place.getX() == 6 && c.getX() <= this.place.getX() - 2 && dy == 0)){
-                if (c.getX() < 8 && c.getX() >= 0 && c.getY() < 8 && c.getY() >= 0 && !getBoard().isOccupied(c)) {
-                    this.board.setOccupation(this.place, false);
-                    this.place = c;
-                    this.board.setOccupation(c, true);
-                } else {
-                    throw new IllegalMove("Illegal move for the Pawn");
+        } else if(getCol() == Color.BLACK) {
+            if ((c.getX() == this.pos.getX() - 1 && dy == 0) || (this.pos.getX() == 6 && c.getX() <= this.pos.getX() - 2 && dy == 0)) {
+                if (checkPath(this.pos, c)) {
+                    return true;
                 }
-            } else {
-                throw new IllegalPosition("The Pawn is out of range");
             }
         }
+        return false;
     }
 
     public String toString(){
-        return board.toString();
+        if (col == Color.WHITE){
+            return "♟";
+        } else {
+            return "♙";
+        }
     }
 }
