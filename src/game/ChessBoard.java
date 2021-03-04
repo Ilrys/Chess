@@ -1,10 +1,13 @@
 package game;
 
-import game.chessPiece.King;
 import game.chessPiece.Movable;
 
 public class ChessBoard {
-    Case lesCases[][];
+    Case[][] lesCases;
+
+    private Case[][] getLesCases() {
+        return lesCases;
+    }
 
     /**
      * The constructor of the chessboard
@@ -30,6 +33,14 @@ public class ChessBoard {
         return this.lesCases[pos.getX()][pos.getY()].isOccupied();
     }
 
+    public Piece getPieces(Coord pi) {
+        if (isOccupied(pi)) {
+            return (Piece) this.lesCases[pi.getX()][pi.getY()].getPiece();
+        } else {
+            System.out.print("La case est vide");
+        }
+        return null;
+    }
     /**
      * Set if the position in the matrix is occupied or not
      * @param pos represents a specific position in matrix.

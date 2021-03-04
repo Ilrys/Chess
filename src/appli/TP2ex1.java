@@ -1,18 +1,27 @@
 package appli;
 
-import game.ChessBoard;
-import game.Color;
-import game.Coord;
+import game.*;
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
 import game.boardException.IllegalMove;
 import game.boardException.IllegalPosition;
 import game.chessPiece.*;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 import static game.Color.*;
-
 
 public class TP2ex1 {
 
     public static void main(String[] args) {
+        ArrayList<String> positions = new ArrayList<String>();
+        Boolean isFinish = false;
+        String inputString= "";
+        Color currentPlayer = WHITE;
+
         ChessBoard myChess = new ChessBoard();
 
         // Initial positions white pawn
@@ -95,29 +104,75 @@ public class TP2ex1 {
         myChess.smartPrint();
         System.out.println("");
 
-        try{
-            // My news positions
-            //Coord myCoordPawnB1 = new Coord(5,1);
-            //myPawnB1.move(myCoordPawnB1);
+        // Black and White
+        while(isFinish == false) {
+            // Enter position
+            System.out.print("Enter a position OR F to finish");
+            Scanner scanner = new Scanner(System.in);
+            inputString = scanner.nextLine();
+            System.out.println("String read from console is : " + inputString);
 
-            //Coord myCoordPawnB5 = new Coord(6,5);
-            //myPawnB5.move(myCoordPawnB5);
+            if(inputString.equals("F")) {
+                // end game
+                System.out.println("Le jeu est terminé");
+                isFinish = true;
+            } else {
+                try {
+                    // create position
+                    String[] parts = inputString.split(" ");
+                    String[] initPositions = parts[0].split(""); // Initial position
+                    String[] lastPositions = parts[1].split(""); // Final position
+                    System.out.println("InitPosition is  : " + initPositions[0]);
 
-            //Coord myQueenPawnB = new Coord(5,2);
-            //myQueenB.move(myQueenPawnB);
+                    // Move Pieces
+                    Coord mycord = new Coord(Integer.parseInt(initPositions[0]),Integer.parseInt(initPositions[1]));
 
-            Coord myCoordPawnW1 = new Coord(3,1);
-            myPawnW1.move(myCoordPawnW1);
+                    if (currentPlayer == myChess.getPieces(mycord).getCol()){
+                        Movable changingPiece = myChess.getPieces(mycord);
+                        changingPiece.move(new Coord(Integer.parseInt(lastPositions[0]), Integer.parseInt(lastPositions[1])));
+                        positions.add(inputString);
+                        currentPlayer = BLACK;
 
-            Coord myTowerW = new Coord(5,1);
-            myTowerW1.move(myTowerW);
+                    } else {
+                        System.out.println("Essayez une piece " + currentPlayer);
+                    }
 
-        } catch (IllegalPosition e){
-            System.out.println(e);
-        } catch (IllegalMove e){
-            System.out.println(e);
+                } catch (IllegalPosition e) {
+                    System.out.println(e);
+                } catch (IllegalMove e) {
+                    System.out.println(e);
+                }
+                System.out.println(positions);
+                FileWriter monFichier = null;
+
+                try {
+                    monFichier = new FileWriter("game.txt");
+
+                    for (String str: positions) {
+                        // Ecrit le tableau de chaînes dans scores.txt
+                        monFichier.write(str + System.lineSeparator());
+
+                        System.out.println("Ecriture de : " + str + System.lineSeparator());
+                    }
+                    System.out.println("Ecriture du fichier terminée.");
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                } finally {
+                    try {
+                        monFichier.close();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                myChess.smartPrint();
+                System.out.println("");
+            }
         }
-        myChess.smartPrint();
+    }
+
+    public void replay(){
 
     }
+
 }

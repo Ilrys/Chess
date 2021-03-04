@@ -11,6 +11,11 @@ import game.chessPiece.Movable;
 public abstract class Piece implements Movable {
     protected ChessBoard board;
     protected Coord pos;
+
+    public void setCol(Color col) {
+        this.col = col;
+    }
+
     protected Color col;
 
     //Getter
