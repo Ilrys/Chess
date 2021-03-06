@@ -4,11 +4,13 @@ import game.boardException.IllegalMove;
 import game.boardException.IllegalPosition;
 import game.chessPiece.Movable;
 
+import java.io.Serializable;
+
 /**
  * Mother class for all pieces of chessboard
  */
 
-public abstract class Piece implements Movable {
+public abstract class Piece implements Movable, Serializable {
     protected ChessBoard board;
     protected Coord pos;
 

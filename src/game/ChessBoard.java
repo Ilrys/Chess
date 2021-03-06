@@ -2,9 +2,11 @@ package game;
 
 import game.chessPiece.Movable;
 
-public class ChessBoard {
-    Case[][] lesCases;
+import java.io.Serializable;
 
+public class ChessBoard implements Serializable {
+    private Case[][] lesCases;
+    private Color currentPlayer;
     private Case[][] getLesCases() {
         return lesCases;
     }
@@ -13,9 +15,21 @@ public class ChessBoard {
      * The constructor of the chessboard
      */
 
-    public ChessBoard() {
-        lesCases = new Case[8][8];
+    public Color getCurrentPlayer() {
+        return currentPlayer;
+    }
 
+    public void changePlayer() {
+        if (this.currentPlayer == Color.WHITE){
+            this.currentPlayer = Color.BLACK;
+        } else {
+            this.currentPlayer = Color.WHITE;
+        }
+    }
+
+    public ChessBoard() {
+        this.lesCases = new Case[8][8];
+        this.currentPlayer = Color.WHITE;
         for(int i = 0; i<8; i++){
             for( int j = 0; j<8; j++){
                 lesCases[i][j] = new Case();
@@ -56,7 +70,6 @@ public class ChessBoard {
     /**
      * The visual matrix for interface
      */
-
 
     public void smartPrint(){
         System.out.println("");
