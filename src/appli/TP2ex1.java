@@ -120,9 +120,7 @@ public class TP2ex1 {
                 while ((ligne = reader.readLine()) != null) {
                     System.out.println(ligne);
                     chaine += ligne + "\n";
-
                     play(myChess, ligne, positions);
-
                     myChess.smartPrint();
                     System.out.println("");
                 }
@@ -161,7 +159,7 @@ public class TP2ex1 {
             out.writeObject(myChess);
             out.close();
             fileOut.close();
-            System.out.printf("Serialized data is saved in saveGame+2.ser");
+            System.out.println("Serialized data is saved in saveGame+2.ser");
         } catch (IOException i) {
             i.printStackTrace();
         }

@@ -46,6 +46,7 @@ public class Tower extends Piece {
 
     @Override
     protected boolean isValidMove(Coord c) {
+        //if (((c.x != place.x)&&(c.y == place.y))||((c.x == place.x)&&(c.y != place.y ))){
         if ((c.getX() != pos.getX()) && (c.getY() == pos.getY())||(c.getX() == pos.getX())&&(c.getY() != pos.getY())){
             if(checkPath(this.pos , c)) {
                 return true;
