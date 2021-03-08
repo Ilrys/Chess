@@ -19,7 +19,7 @@ public class Pawn extends Piece {
      * @param board corresponds of the board with de pieces
      */
 
-    public Pawn(Coord pos, Color col, ChessBoard board) {
+    public Pawn(Coord pos, Color col, ChessBoard board) throws IllegalMove, IllegalPosition {
         super(pos, col, board);
     }
 

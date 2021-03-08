@@ -7,11 +7,10 @@ public class Coord implements Serializable {
     private int y;
 
     /**
-     *
+     * This method calibrates the x and y positions
      * @param x represent the x value coordinate in matrix
      * @param y represent the y value coordinate in matrix
      */
-
     public Coord(int x, int y) {
         this.x = x - 1;
         this.y = y - 1;
@@ -28,11 +27,7 @@ public class Coord implements Serializable {
     public void setX(int x) {
         this.x = x;
     }
-
     public void setY(int y) {
         this.y = y;
     }
-
-
-
 }

@@ -10,7 +10,6 @@ import game.boardException.IllegalPosition;
 /**
  * A piece of chess : tower
  */
-
 public class Tower extends Piece {
 
     /**
@@ -19,6 +18,7 @@ public class Tower extends Piece {
      * @param col corresponds of tge color's piece
      * @param board corresponds of the board with de pieces
      */
+
     /**
      * Method used to check if the number sign is positive, negative or null
      * @param i Integer
@@ -33,12 +33,12 @@ public class Tower extends Piece {
         }
     }
 
-    public Tower(Coord pos, Color col, ChessBoard board) {
+    public Tower(Coord pos, Color col, ChessBoard board) throws IllegalMove, IllegalPosition {
         super(pos, col, board);
     }
 
     /**
-     *
+     * This method check the rules of piece's trips. 
      * @param c corresponds to the new desired position.
      * @throws IllegalPosition except an exception when the piece is out of matrix
      * @throws IllegalMove except an exception when  the piece make a move out of this capacity.
@@ -46,7 +46,6 @@ public class Tower extends Piece {
 
     @Override
     protected boolean isValidMove(Coord c) {
-        //if (((c.x != place.x)&&(c.y == place.y))||((c.x == place.x)&&(c.y != place.y ))){
         if ((c.getX() != pos.getX()) && (c.getY() == pos.getY())||(c.getX() == pos.getX())&&(c.getY() != pos.getY())){
             if(checkPath(this.pos , c)) {
                 return true;

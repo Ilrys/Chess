@@ -15,7 +15,7 @@ public class Tp1ex1 {
      * @param args an array argument used with the console.
      */
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalMove, IllegalPosition {
         ChessBoard myChess = new ChessBoard();
 
         // Initial positions white pawn

@@ -19,7 +19,7 @@ public class Queen extends Piece {
      * @param board corresponds of the board with de pieces
      */
 
-    public Queen(Coord pos, Color col, ChessBoard board) {
+    public Queen(Coord pos, Color col, ChessBoard board) throws IllegalMove, IllegalPosition {
         super(pos, col, board);
 
     }

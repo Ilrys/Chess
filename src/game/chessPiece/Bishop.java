@@ -17,7 +17,7 @@ public class Bishop extends Piece {
      * @param col corresponds of tge color's piece
      * @param board corresponds of the board with de pieces
      */
-    public Bishop(Coord pos, Color col, ChessBoard board) {
+    public Bishop(Coord pos, Color col, ChessBoard board) throws IllegalMove, IllegalPosition {
         super(pos, col, board);
     }
 

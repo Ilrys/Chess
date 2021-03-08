@@ -17,9 +17,15 @@ import static game.Color.*;
 public class TP2ex1 {
     static Boolean isFinish = false;
 
+    /**
+     * this method allows to display a menu and to take actions.
+     * @param args an array argument used with the console.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        System.out.print("- Entrez J pour jouer \n- Entrez R pour revoir la dernière partie \n- Enter L to load saved game\n Choix : ");
+    public static void main(String[] args) throws IOException, ClassNotFoundException, IllegalMove, IllegalPosition {
+        System.out.print("- Enter J to play \n- Enter R review the last game \n- Enter L to load saved game\n Choice : ");
         Scanner scan = new Scanner(System.in);
         String beginChoice = "";
         beginChoice = scan.nextLine();
@@ -82,7 +88,7 @@ public class TP2ex1 {
                     save(myChess);
                 } else {
                     positions.add(inputString);
-                    play(myChess, inputString, positions);
+                    play(myChess, inputString);
                     writer(positions);
                     System.out.println(positions);
                 }
@@ -104,7 +110,7 @@ public class TP2ex1 {
                 } else if ((inputString.equals("S"))) {
                     save(myChess);
                 } else {
-                    play(myChess, inputString, positions);
+                    play(myChess, inputString);
                 }
             }
         } else if (beginChoice.equals("R")) {
@@ -120,7 +126,7 @@ public class TP2ex1 {
                 while ((ligne = reader.readLine()) != null) {
                     System.out.println(ligne);
                     chaine += ligne + "\n";
-                    play(myChess, ligne, positions);
+                    play(myChess, ligne);
                     myChess.smartPrint();
                     System.out.println("");
                 }
@@ -133,24 +139,34 @@ public class TP2ex1 {
         }
     }
 
+    /**
+     * This method allow to save all the positions of the game in a file text.
+     * @param positions list of positions of pieces
+     */
+
     public static void writer(ArrayList positions){
-        FileWriter monFichier = null;
+        FileWriter myfile = null;
         try {
-            monFichier = new FileWriter("game.txt");
+            myfile = new FileWriter("game.txt");
             for (Object str : positions) {
-                monFichier.write(str + System.lineSeparator());
+                myfile.write(str + System.lineSeparator());
             }
         } catch (IOException exception) {
             exception.printStackTrace();
 
         } finally {
             try {
-                monFichier.close();
+                myfile.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         }
     }
+
+    /**
+     * This method is used to save the game in the current state with the serialization.
+     * @param myChess the board of my chess.
+     */
 
     public static void save(ChessBoard myChess){
         try {
@@ -165,6 +181,13 @@ public class TP2ex1 {
         }
     }
 
+    /**
+     * This method load the serialized object of chessboard with old positions.
+     * @return the new loaded board.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+
     public static ChessBoard load() throws IOException, ClassNotFoundException {
         FileInputStream fileIn = new FileInputStream(new File("saveGame.ser"));
         ObjectInputStream oi = new ObjectInputStream(fileIn);
@@ -173,7 +196,13 @@ public class TP2ex1 {
         return (ChessBoard) oi.readObject();
     }
 
-    public static void play(ChessBoard myChess, String inputString, ArrayList positions ){
+    /**
+     * This methods allows to play in real time.
+     * @param myChess the board of my chess.
+     * @param inputString String representing my position.
+     */
+
+    public static void play(ChessBoard myChess, String inputString){
         try {
             // create position
             String[] parts = inputString.split(" ");
@@ -198,6 +227,9 @@ public class TP2ex1 {
         System.out.println("");
     }
 
+    /**
+     * This method is used to finish the game.
+     */
     public static void finish(){
         System.out.println("The end of the game");
         isFinish = true;

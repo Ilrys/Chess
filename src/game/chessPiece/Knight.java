@@ -18,7 +18,7 @@ public class Knight extends Piece {
      * @param board corresponds of the board with de pieces
      */
 
-    public Knight(Coord pos, Color col, ChessBoard board) {
+    public Knight(Coord pos, Color col, ChessBoard board) throws IllegalMove, IllegalPosition {
         super(pos, col, board);
     }
 

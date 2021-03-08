@@ -1,5 +1,7 @@
 package game;
 
+import game.boardException.IllegalMove;
+import game.boardException.IllegalPosition;
 import game.chessPiece.Movable;
 
 import java.io.Serializable;
@@ -12,13 +14,15 @@ public class ChessBoard implements Serializable {
     }
 
     /**
-     * The constructor of the chessboard
+     * This method give the access of player
      */
-
     public Color getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Allow to change the payer (black or white)
+     */
     public void changePlayer() {
         if (this.currentPlayer == Color.WHITE){
             this.currentPlayer = Color.BLACK;
@@ -27,6 +31,9 @@ public class ChessBoard implements Serializable {
         }
     }
 
+    /**
+     * The constructor of the chessboard
+     */
     public ChessBoard() {
         this.lesCases = new Case[8][8];
         this.currentPlayer = Color.WHITE;
@@ -47,6 +54,11 @@ public class ChessBoard implements Serializable {
         return this.lesCases[pos.getX()][pos.getY()].isOccupied();
     }
 
+    /**
+     * this method allows access to chess pieces if the case is not occupied.
+     * @param pi
+     * @return
+     */
     public Piece getPieces(Coord pi) {
         if (isOccupied(pi)) {
             return (Piece) this.lesCases[pi.getX()][pi.getY()].getPiece();
@@ -61,10 +73,12 @@ public class ChessBoard implements Serializable {
      * @param p  Boolean value to set if the position is occupied or not.
      */
 
-    public void setOccupation(Coord pos, Movable p){
-        // REMPLACER
-        lesCases[p.getPos().getX()][p.getPos().getY()].setPiece(null);
-        lesCases[pos.getX()][pos.getY()].setPiece(p);
+    public void setOccupation(Coord pos, Movable p) throws IllegalPosition {
+        if (pos.getX() < 8 && pos.getX() >= 0 && pos.getY() < 8 && pos.getY() >= 0 ){
+            lesCases[pos.getX()][pos.getY()].setPiece(p);
+        } else {
+            throw new IllegalPosition("The Piece is out of range");
+        }
     }
 
     /**
