@@ -7,30 +7,27 @@ import game.Piece;
 import game.boardException.IllegalMove;
 import game.boardException.IllegalPosition;
 
-/**
- * A piece of chess : queen
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class Queen extends Piece {
 
     /**
-     *
+     *  A piece of chess : queen
      * @param pos corresponds of the position's piece
      * @param col corresponds of tge color's piece
      * @param board corresponds of the board with de pieces
+     * @throws IllegalPosition
      */
-
-    public Queen(Coord pos, Color col, ChessBoard board) throws IllegalMove, IllegalPosition {
+    public Queen(Coord pos, Color col, ChessBoard board) throws IllegalPosition {
         super(pos, col, board);
-
     }
 
     /**
-     *
+     * This method check the rules of piece's trips.
      * @param c corresponds to the new desired position.
-     * @throws IllegalPosition except an exception when the piece is out of matrix
-     * @throws IllegalMove except an exception when  the piece make a move out of this capacity.
+     * @return a boolean if move is possible or not
      */
-
     @Override
     protected boolean isValidMove(Coord c) {
         int dx = Math.abs(this.pos.getX() - c.getX());
@@ -44,11 +41,33 @@ public class Queen extends Piece {
         return false;
     }
 
+    /**
+     * Methods to determine if the move is legal or not
+     * @return list of coord
+     */
+    @Override
+    public List<Coord> legalMove(){
+        ArrayList<Coord> coords = new ArrayList<Coord>();
+        for(int i =0; i<8; i++){
+            for(int j =0; j<8; j++){
+                Coord co = new Coord(i+1,j+1);
+                if(isValidMove(co)){
+                    coords.add(co);
+                }
+            }
+        }
+        return coords;
+    }
+
+    /**
+     * Methods which determine the appearance of this piece
+     * @return image of piece
+     */
     public String toString(){
         if (col == Color.WHITE){
-            return "♚";
+            return "♛";
         } else {
-            return "♔";
+            return "♕";
         }
     }
 }

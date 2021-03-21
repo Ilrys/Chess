@@ -1,6 +1,5 @@
 package game;
 
-import game.boardException.IllegalMove;
 import game.boardException.IllegalPosition;
 import game.chessPiece.Movable;
 
@@ -49,15 +48,14 @@ public class ChessBoard implements Serializable {
      * @param pos represents a specific position in matrix.
      * @return a boolean, true if the case is occupied else false.
      */
-
     public boolean isOccupied(Coord pos){
         return this.lesCases[pos.getX()][pos.getY()].isOccupied();
     }
 
     /**
-     * this method allows access to chess pieces if the case is not occupied.
-     * @param pi
-     * @return
+     * This method allows access to chess pieces if the case is not occupied.
+     * @param pi the position of piece
+     * @return the piece
      */
     public Piece getPieces(Coord pi) {
         if (isOccupied(pi)) {
@@ -72,7 +70,6 @@ public class ChessBoard implements Serializable {
      * @param pos represents a specific position in matrix.
      * @param p  Boolean value to set if the position is occupied or not.
      */
-
     public void setOccupation(Coord pos, Movable p) throws IllegalPosition {
         if (pos.getX() < 8 && pos.getX() >= 0 && pos.getY() < 8 && pos.getY() >= 0 ){
             lesCases[pos.getX()][pos.getY()].setPiece(p);
@@ -84,7 +81,6 @@ public class ChessBoard implements Serializable {
     /**
      * The visual matrix for interface
      */
-
     public void smartPrint(){
         System.out.println("");
         for(int i = 8; i>0; i--){ // évite l'inversion d'affichage
@@ -99,6 +95,5 @@ public class ChessBoard implements Serializable {
             System.out.println("");
         }
         System.out.print("  1  2  3  4  5  6  7  8");
-
     }
 }

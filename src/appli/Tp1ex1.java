@@ -22,8 +22,8 @@ public class Tp1ex1 {
         Coord coordTowerW1= new Coord(1,1);
         Coord coordKnightW1= new Coord(1, 2);
         Coord coordBishopW2= new Coord(1, 3);
-        Coord coordKingW = new Coord(1,4);
-        Coord coordQueenW = new Coord(1,5);
+        Coord coordKingW = new Coord(1,5);
+        Coord coordQueenW = new Coord(1,4);
         Coord coordBishopW1= new Coord(1, 6);
         Coord coordKnightW2= new Coord(1, 7);
         Coord coordTowerW2= new Coord(1,8);
@@ -32,8 +32,8 @@ public class Tp1ex1 {
         Coord coordTowerB1= new Coord(8,1);
         Coord coordKnightB1= new Coord(8, 2);
         Coord coordBishopB2= new Coord(8, 3);
-        Coord coordKingB = new Coord(8,4);
-        Coord coordQueenB = new Coord(8,5);
+        Coord coordKingB = new Coord(8,5);
+        Coord coordQueenB = new Coord(8,4);
         Coord coordBishopB1= new Coord(8, 6);
         Coord coordKnightB2= new Coord(8, 7);
         Coord coordTowerB2= new Coord(8,8);

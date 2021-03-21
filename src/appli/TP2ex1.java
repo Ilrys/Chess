@@ -1,5 +1,7 @@
 package appli;
 
+import fx.GraphFX;
+import fx.Pictures;
 import game.*;
 
 import java.util.Scanner;
@@ -23,7 +25,6 @@ public class TP2ex1 {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-
     public static void main(String[] args) throws IOException, ClassNotFoundException, IllegalMove, IllegalPosition {
         System.out.print("- Enter J to play \n- Enter R review the last game \n- Enter L to load saved game\n Choice : ");
         Scanner scan = new Scanner(System.in);
@@ -36,14 +37,19 @@ public class TP2ex1 {
         ChessBoard myChess = new ChessBoard();
 
         // My whites pieces
-        King myKingW = new King(new Coord(1, 4), WHITE, myChess);
-        Queen myQueenW = new Queen(new Coord(1, 5), WHITE, myChess);
+        King myKingW = new King(new Coord(1, 5), WHITE, myChess);
+        Queen myQueenW = new Queen(new Coord(1, 4), WHITE, myChess);
         Tower myTowerW1 = new Tower(new Coord(1, 1), WHITE, myChess);
         Tower myTowerW2 = new Tower(new Coord(1, 8), WHITE, myChess);
         Bishop myBishopW1 = new Bishop(new Coord(1, 3), WHITE, myChess);
         Bishop myBishopW2 = new Bishop(new Coord(1, 6), WHITE, myChess);
         Knight myKnightW1 = new Knight(new Coord(1, 2), WHITE, myChess);
         Knight myKnightW2 = new Knight(new Coord(1, 7), WHITE, myChess);
+
+        //for (int i = 1; i < 9; i++) {
+          //  Pawn myPawnW1 = new Pawn(new Coord(2, i), WHITE, myChess);
+        //}
+
         Pawn myPawnW1 = new Pawn(new Coord(2, 1), WHITE, myChess);
         Pawn myPawnW2 = new Pawn(new Coord(2, 2), WHITE, myChess);
         Pawn myPawnW3 = new Pawn(new Coord(2, 3), WHITE, myChess);
@@ -52,10 +58,9 @@ public class TP2ex1 {
         Pawn myPawnW6 = new Pawn(new Coord(2, 6), WHITE, myChess);
         Pawn myPawnW7 = new Pawn(new Coord(2, 7), WHITE, myChess);
         Pawn myPawnW8 = new Pawn(new Coord(2, 8), WHITE, myChess);
-
         // My blacks pieces
-        King myKingB = new King(new Coord(8, 4), BLACK, myChess);
-        Queen myQueenB = new Queen(new Coord(8, 5), BLACK, myChess);
+        King myKingB = new King(new Coord(8, 5), BLACK, myChess);
+        Queen myQueenB = new Queen(new Coord(8, 4), BLACK, myChess);
         Tower myTowerB1 = new Tower(new Coord(8, 1), BLACK, myChess);
         Tower myTowerB2 = new Tower(new Coord(8, 8), BLACK, myChess);
         Bishop myBishopB1 = new Bishop(new Coord(8, 3), BLACK, myChess);
@@ -76,8 +81,16 @@ public class TP2ex1 {
         System.out.println("");
 
         if (beginChoice.equals("J")) {
-            while (isFinish == false) {
+
+            while (!isFinish) {
                 // Enter position
+                GraphFX.launch(GraphFX.class, args);
+
+                myPawnB1.legalMove();
+                myPawnB2.legalMove();
+
+                myQueenW.legalMove();
+                myTowerW2.legalMove();
                 System.out.println("It's at " + myChess.getCurrentPlayer() + " to play");
                 System.out.print("- Enter a position \n- F to finish \n- S to save \n-> ");
                 Scanner scanner = new Scanner(System.in);
@@ -143,7 +156,6 @@ public class TP2ex1 {
      * This method allow to save all the positions of the game in a file text.
      * @param positions list of positions of pieces
      */
-
     public static void writer(ArrayList positions){
         FileWriter myfile = null;
         try {
@@ -167,7 +179,6 @@ public class TP2ex1 {
      * This method is used to save the game in the current state with the serialization.
      * @param myChess the board of my chess.
      */
-
     public static void save(ChessBoard myChess){
         try {
             FileOutputStream fileOut = new FileOutputStream("saveGame.ser");
@@ -187,7 +198,6 @@ public class TP2ex1 {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-
     public static ChessBoard load() throws IOException, ClassNotFoundException {
         FileInputStream fileIn = new FileInputStream(new File("saveGame.ser"));
         ObjectInputStream oi = new ObjectInputStream(fileIn);
@@ -201,16 +211,17 @@ public class TP2ex1 {
      * @param myChess the board of my chess.
      * @param inputString String representing my position.
      */
-
     public static void play(ChessBoard myChess, String inputString){
         try {
             // create position
+
             String[] parts = inputString.split(" ");
             String[] initPositions = parts[0].split(""); // Initial position
             String[] lastPositions = parts[1].split(""); // Final position
 
             // Move Pieces
             Coord mycord = new Coord(Integer.parseInt(initPositions[0]), Integer.parseInt(initPositions[1]));
+
             if (myChess.getCurrentPlayer() == myChess.getPieces(mycord).getCol()) {
                 Movable changingPiece = myChess.getPieces(mycord);
                 changingPiece.move(new Coord(Integer.parseInt(lastPositions[0]), Integer.parseInt(lastPositions[1])));
